@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/buscacores",
+  "framework": "angular",
+  "env": {
+    "NODE_OPTIONS": "--openssl-legacy-provider"
+  }
+}
