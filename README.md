@@ -1,10 +1,85 @@
-# Busca Cores - Projeto Diamante 01
+# Medix - Plataforma de Gestão de Saúde
 
-O Busca Cores é um site feito para quem precisa de inspiração visual. A ideia é simples: um lugar onde você pode descobrir e salvar paletas de cores de um jeito rápido.
+O Medix é uma aplicação web desenvolvida para otimizar a interação entre pacientes e unidades de saúde.
 
-No site, você consegue navegar pelas combinações criadas por outras pessoas ou gerar as suas próprias paletas personalizadas. Além disso, dá para organizar suas coleções favoritas e gerenciar suas criações privadas em um só lugar, facilitando a escolha de cores para qualquer projeto.
+A plataforma permite o agendamento de consultas, acompanhamento de atendimentos, visualização de informações clínicas e suporte via chatbot com IA. O sistema também conta com recursos administrativos para gestão de usuários, unidades, salas, colaboradores e agendamentos.
 
----
+## Tecnologias
+
+- Angular
+- Vercel
+
+## Funcionalidades
+
+- Cadastro e autenticação de usuários
+- Área do paciente
+- Agendamento de consultas
+- Consulta de agendamentos futuros
+- Cancelamento de agendamentos
+- Listagem de médicos disponíveis
+- Listagem de unidades de saúde
+- Seleção de horários disponíveis
+- Chatbot Medix AI para suporte, dúvidas e fluxo de agendamento
+- Integração com API Java Spring Boot
+- Integração com banco de dados Oracle
+
+## Integração com a API
+
+Este frontend consome a API do projeto Medix desenvolvida em Java Spring Boot.
+
+A API é responsável por:
+
+- autenticação e segurança;
+- regras de negócio;
+- persistência dos dados;
+- gestão de pacientes, colaboradores, salas e unidades;
+- criação, listagem e cancelamento de agendamentos;
+- suporte ao chatbot com IA;
+- consulta de contexto institucional via RAG simplificado.
+
+Repositório da API:
+
+```text
+https://github.com/challengeoracle/sprint-04-java
+```
+
+## Como executar o projeto
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Execute o projeto localmente:
+
+```bash
+ng serve
+```
+
+Acesse:
+
+```text
+http://localhost:4200
+```
+
+## Build
+
+Para gerar a versão de produção:
+
+```bash
+ng build
+```
+
+Os arquivos finais serão gerados na pasta `dist/`.
+
+## Deploy
+
+O projeto está preparado para deploy na Vercel.
+
+## Observações
+
+Antes de utilizar todas as funcionalidades, a API Java precisa estar em execução e configurada corretamente com o banco Oracle e as variáveis de ambiente necessárias.
 
 ## Integrantes
 
@@ -12,35 +87,6 @@ No site, você consegue navegar pelas combinações criadas por outras pessoas o
 - Davi Cavalcanti Jorge — RM: 559873
 - Mateus da Silveira Lima — RM: 559728
 
----
+## Grupo
 
-## Passo a Passo para Iniciar
-
-### 1. Configuração do Frontend (Angular)
-
-Certifique-se de ter o Node.js e o Angular CLI instalados.
-
-1. Abra o terminal na pasta raiz do frontend.
-2. Instale as dependências:
-   ```
-   npm install
-   ```
-3. Inicie o projeto:
-   ```
-   ng serve
-   ```
-4. Acesse: http://localhost:4200
-
-### 2. Configuração do Backend (Spring Boot)
-
-Certifique-se de ter o Maven CLI, Docker Desktop e Java 17+ instalados.
-
-1. Certifique-se de que o **Docker Desktop** está aberto e rodando.
-2. Abra o terminal na pasta raiz do backend.
-3. Inicie o projeto:
-  ```
-  mvnw spring-boot:run
-  ```
-4. Automaticamente os containers necessários serão criado e a aplicação ficará disponível em http://localhost:8080
-
----
+Challenge Oracle
