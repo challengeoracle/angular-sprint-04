@@ -1,0 +1,61 @@
+<div class="bg-white p-8 rounded-4xl border border-medix-100 shadow-sm">
+  <h2 class="text-lg font-black text-medix-700 mb-6 flex items-center gap-2">
+    <lucide-icon [img]="icons.UserPlus" [size]="20" class="text-medix-600"></lucide-icon>
+    Novo Colaborador
+  </h2>
+
+  <form [formGroup]="formColaborador" (ngSubmit)="cadastrar()" class="space-y-4">
+    <div class="group">
+      <input
+        formControlName="nome"
+        placeholder="Nome Completo"
+        class="w-full px-4 py-3 rounded-xl border border-medix-100 bg-medix-50 focus:border-medix-600 focus:bg-white outline-none transition-all text-sm font-bold"
+      />
+    </div>
+
+    <div class="group">
+      <input
+        formControlName="cpf"
+        placeholder="CPF (apenas 11 números)"
+        maxlength="11"
+        (input)="limparCpf()"
+        class="w-full px-4 py-3 rounded-xl border border-medix-100 bg-medix-50 outline-none focus:border-medix-600 text-sm font-bold"
+      />
+      @if (formColaborador.controls.cpf.touched && formColaborador.controls.cpf.invalid) {
+        <span class="text-[10px] text-medix-error font-bold ml-1"
+          >CPF deve conter exatamente 11 números</span
+        >
+      }
+    </div>
+
+    <select
+      formControlName="tipoColaborador"
+      class="w-full px-4 py-3 rounded-xl border border-medix-100 bg-medix-50 text-xs font-bold text-medix-700"
+    >
+      <option value="OPERACIONAL">OPERACIONAL</option>
+      <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+    </select>
+
+    <input
+      formControlName="email"
+      type="email"
+      placeholder="E-mail Corporativo"
+      class="w-full px-4 py-3 rounded-xl border border-medix-100 bg-medix-50 outline-none text-sm font-bold"
+    />
+
+    <input
+      formControlName="senha"
+      type="password"
+      placeholder="Senha (min. 6 carac.)"
+      class="w-full px-4 py-3 rounded-xl border border-medix-100 bg-medix-50 outline-none text-sm font-bold"
+    />
+
+    <button
+      type="submit"
+      [disabled]="formColaborador.invalid"
+      class="w-full bg-medix-600 text-white py-4 rounded-2xl font-bold hover:bg-medix-700 shadow-lg shadow-medix-600/20 active:scale-95 disabled:opacity-50 transition-all"
+    >
+      Confirmar Registro
+    </button>
+  </form>
+</div>

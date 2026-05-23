@@ -1,0 +1,69 @@
+<div class="mx-auto max-w-3xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <header class="mb-3">
+    <h1 class="text-xl font-bold text-slate-900 tracking-tight">Medix AI</h1>
+    <p class="text-slate-500 text-xs">Assistente inteligente para triagem e agendamentos.</p>
+  </header>
+
+  <div
+    class="flex h-[calc(100vh-210px)] min-h-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
+  >
+    <div
+      #scrollMe
+      class="min-h-0 flex-1 overflow-y-auto space-y-4 bg-slate-50/50 p-4 scroll-smooth"
+    >
+      <div
+        *ngFor="let msg of messages"
+        class="flex"
+        [ngClass]="{ 'justify-end': msg.sender === 'user', 'justify-start': msg.sender === 'bot' }"
+      >
+        <div
+          class="max-w-[75%] rounded-xl px-4 py-2.5 text-xs shadow-sm border"
+          [ngClass]="{
+            'bg-medix-600 text-white border-medix-600 rounded-br-none': msg.sender === 'user',
+            'bg-white text-slate-700 border-slate-200 rounded-bl-none': msg.sender === 'bot',
+          }"
+        >
+          <p class="whitespace-pre-wrap leading-relaxed">{{ msg.text }}</p>
+
+          <span class="text-[9px] block mt-1 opacity-50 text-right">
+            {{ msg.timestamp | date: 'HH:mm' }}
+          </span>
+        </div>
+      </div>
+
+      <div *ngIf="isLoading" class="flex justify-start">
+        <div
+          class="bg-white border border-slate-200 rounded-xl rounded-bl-none px-4 py-3 shadow-sm flex items-center gap-1.5"
+        >
+          <div class="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce"></div>
+          <div
+            class="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce"
+            style="animation-delay: 0.2s"
+          ></div>
+          <div
+            class="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce"
+            style="animation-delay: 0.4s"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shrink-0 p-4 bg-white border-t border-slate-100 flex gap-3 items-center">
+      <input
+        type="text"
+        [(ngModel)]="userInput"
+        (keyup.enter)="enviarMensagem()"
+        placeholder="Digite sua mensagem..."
+        class="flex-1 px-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-medix-500/20 focus:border-medix-500 text-slate-700 placeholder:text-slate-400 transition-all"
+      />
+
+      <button
+        (click)="enviarMensagem()"
+        [disabled]="isLoading"
+        class="bg-medix-600 hover:bg-medix-700 disabled:bg-slate-200 text-white p-2.5 rounded-lg transition-all shadow-sm flex items-center justify-center"
+      >
+        <lucide-icon [img]="icons.Send" [size]="17"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</div>

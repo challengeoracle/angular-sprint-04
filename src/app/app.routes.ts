@@ -1,18 +1,51 @@
-// gemini/src/app/app.routes.ts
-import { Routes } from '@angular/router';
 import { Welcome } from './components/welcome/welcome';
-import { Explore } from './components/explore/explore';
 import { Login } from './components/login/login';
-import { New } from './components/new/new';
-import { Profile } from './components/profile/profile';
-import { Signup } from './components/signup/signup';
-import { authGuard } from './auth-guard'; // Importação correta
+import { DashboardAdmin } from './components/dashboard-admin/dashboard-admin';
+import { Routes } from '@angular/router';
+
+import { authGuard } from './auth-guard';
+import { roleGuard } from './role-guard';
+import { DashboardColaborador } from './components/dashboard-colaborador/dashboard-colaborador';
+import { DashboardPaciente } from './components/dashboard-paciente/dashboard-paciente';
+import { MedixAiChat } from './components/medix-ai-chat/medix-ai-chat';
 
 export const routes: Routes = [
-  { path: '', component: Welcome, title: 'Busca Cores - Bem vindo' },
-  { path: 'explore', component: Explore, title: 'Busca Cores - Explorar' },
-  { path: 'login', component: Login, title: 'Busca Cores - Login' },
-  { path: 'signup', component: Signup, title: 'Busca Cores - Criar Conta' },
-  { path: 'new', component: New, title: 'Busca Cores - Nova Paleta', canActivate: [authGuard] },
-  { path: 'profile', component: Profile, title: 'Busca Cores - Perfil', canActivate: [authGuard] },
+  {
+    path: '',
+    component: Welcome,
+    title: 'MEDIX - Bem vindo',
+  },
+  {
+    path: 'login',
+    component: Login,
+    title: 'MEDIX - Login',
+  },
+  {
+    path: 'admin',
+    component: DashboardAdmin,
+    canActivate: [authGuard, roleGuard],
+    title: 'MEDIX - Admin',
+    data: { role: 'ADMIN' }, // Apenas ADMIN entra aqui
+  },
+  {
+    path: 'colaborador',
+    component: DashboardColaborador,
+    canActivate: [authGuard, roleGuard],
+    title: 'MEDIX - Gerenciar Unidades',
+    data: { role: 'COLABORADOR' }, // Apenas COLABORADOR entra aqui
+  },
+  {
+    path: 'paciente',
+    component: DashboardPaciente,
+    canActivate: [authGuard, roleGuard],
+    title: 'MEDIX - Agendamentos',
+    data: { role: 'PACIENTE' },
+  },
+  {
+    path: 'medix-ai',
+    component: MedixAiChat,
+    canActivate: [authGuard, roleGuard],
+    title: 'MEDIX - Agendamentos',
+    data: { role: 'PACIENTE' },
+  },
 ];

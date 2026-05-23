@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ToastService } from '../../service/toast.service';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, CheckCircle, XCircle, Info, X } from 'lucide-angular';
+import { LucideAngularModule, CheckCircle, XCircle, Info, X, AlertTriangle } from 'lucide-angular';
 
 @Component({
   selector: 'app-toast',
@@ -17,5 +17,6 @@ export class ToastComponent {
     x: X,
     errorIcon: XCircle,
     info: Info,
+    warning: AlertTriangle, // Novo ícone para alertas
   };
 }

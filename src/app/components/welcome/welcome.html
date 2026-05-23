@@ -1,178 +1,43 @@
-<div class="flex flex-col items-center justify-center min-h-[85vh] text-center px-4">
-  <h1 class="text-5xl md:text-6xl font-extrabold text-slate-800 mb-6 tracking-tight">
-    Sem criatividade para colorir?<br />
-    Usa o
-    <span class="text-pink-600 relative"> Busca Cores </span>!
-  </h1>
+<div class="flex flex-col items-center justify-start max-h-screen overflow-hidden bg-medix-50 px-6">
+  <div class="flex flex-col items-center w-full max-w-sm">
+    <img src="medix-logo.png" alt="Medix Logo" class="w-64 h-40 rounded-full object-contain mb-8" />
 
-  <p class="text-xl text-slate-500 max-w-2xl leading-relaxed mb-10">
-    A plataforma para você <span class="text-slate-800 font-semibold">explorar</span>,
-    <span class="text-slate-800 font-semibold">criar</span> e
-    <span class="text-slate-800 font-semibold">gerenciar</span>
-    paletas de cores incríveis.
-  </p>
+    <div class="text-center">
+      <p class="text-2xl font-black text-medix-700 tracking-tighter mb-2">
+        Sua saúde, simplificada.
+      </p>
+      <p class="text-sm text-medix-400 font-medium mb-10">
+        Acesse o portal para gerenciar sua jornada clínica.
+      </p>
+    </div>
 
-  <div class="flex flex-wrap justify-center gap-4">
     <button
-      routerLink="/explore"
-      class="px-8 py-4 flex items-center gap-2 cursor-pointer bg-pink-600 text-white font-bold rounded-full shadow-xl shadow-pink-200 hover:bg-pink-700 transition-all hover:scale-105 active:scale-95"
+      routerLink="/login"
+      class="flex items-center justify-center gap-3 w-full bg-medix-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-medix-600/20 hover:bg-medix-700 transition-all active:scale-95"
     >
-      <lucide-icon [img]="icons.foward" [size]="20"></lucide-icon>
-      Começar a Explorar
+      <lucide-icon [img]="icons.login" [size]="20"></lucide-icon>
+      Entrar no Sistema
     </button>
 
-    <a
-      href="#sobre"
-      class="px-8 py-4 bg-white text-slate-600 font-bold border border-slate-200 rounded-full hover:bg-slate-50 transition-all shadow-sm"
-    >
-      Saiba Mais
-    </a>
-  </div>
-
-  <div class="flex gap-3 mt-20">
-    <div class="w-10 h-10 rounded-full bg-pink-600 shadow-lg"></div>
-    <div class="w-10 h-10 rounded-full bg-pink-400 shadow-lg"></div>
-    <div class="w-10 h-10 rounded-full bg-pink-200 shadow-lg"></div>
-    <div class="w-10 h-10 rounded-full bg-slate-200 shadow-lg"></div>
-    <div
-      class="w-10 h-10 rounded-full bg-slate-100 shadow-lg border border-slate-200 delay-300"
-    ></div>
-  </div>
-
-  <div class="pt-8 animate-bounce text-slate-500">
-    <lucide-icon [img]="icons.arrowDown" [size]="18"></lucide-icon>
-  </div>
-</div>
-
-<section id="sobre" class="py-24 px-6 bg-slate-50/50 border-t border-slate-100 scroll-mt-20">
-  <div class="max-w-6xl mx-auto">
-    <div class="grid lg:grid-cols-2 gap-16 mb-24 items-center">
-      <div class="space-y-6">
-        <h3 class="text-pink-500 font-black text-xs uppercase tracking-[0.3em]">
-          Projeto Diamante 01
-        </h3>
-        <h2 class="text-4xl font-black text-slate-800 leading-tight">
-          Onde a harmonia das cores encontra o código sólido.
-        </h2>
-        <p class="text-lg text-slate-500 leading-relaxed">
-          Desenvolvido como parte do currículo de <strong>Java Advanced</strong>, este projeto
-          integra as tecnologias mais recentes do mercado para criar uma experiência de design
-          fluida e segura.
-        </p>
-
-        <div class="flex flex-wrap gap-3 pt-4">
-          <a
-            href="https://github.com/mtslma/buscacores-web"
-            target="_blank"
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:border-pink-300 hover:text-pink-600 transition-all shadow-sm"
-          >
-            <lucide-icon [img]="icons.layout" [size]="18"></lucide-icon>
-            Repositório Frontend
-          </a>
-          <a
-            href="https://github.com/mtslma/buscacores-api"
-            target="_blank"
-            class="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:border-pink-300 hover:text-pink-600 transition-all shadow-sm"
-          >
-            <lucide-icon [img]="icons.server" [size]="18"></lucide-icon>
-            Repositório Backend
-          </a>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-          <div
-            class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4"
-          >
-            <lucide-icon [img]="icons.layout" [size]="20"></lucide-icon>
-          </div>
-          <h4 class="font-bold text-slate-800 mb-1">Frontend</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Angular 19, Signals, Forms, HttpClient, JWT Interceptor.
-          </p>
-        </div>
-        <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-          <div
-            class="w-10 h-10 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-4"
-          >
-            <lucide-icon [img]="icons.server" [size]="20"></lucide-icon>
-          </div>
-          <h4 class="font-bold text-slate-800 mb-1">Backend</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Spring Boot, JPA, Flyway, Docker & Security JWT.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="text-center mb-16">
-      <h3 class="text-slate-400 font-bold text-sm uppercase tracking-widest mb-2">
-        Time de Desenvolvimento
-      </h3>
-      <div class="w-20 h-1 bg-pink-200 mx-auto rounded-full"></div>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-8">
-      <div
-        class="group bg-white p-8 rounded-[40px] border border-slate-100 text-center hover:shadow-2xl hover:shadow-pink-100/50 transition-all duration-500"
-      >
-        <img
-          src="https://github.com/athomasmariano.png"
-          class="w-24 h-24 rounded-full mx-auto mb-6 border-4 border-slate-50 group-hover:scale-110 transition-transform"
-        />
-        <h4 class="text-xl font-black text-slate-800">Arthur Thomas Mariano</h4>
-        <p class="text-sm text-slate-400 font-medium mb-4">RM561061</p>
-        <a
-          href="https://github.com/athomasmariano"
-          target="_blank"
-          class="inline-flex p-2 bg-slate-50 text-slate-400 rounded-full hover:bg-pink-600 hover:text-white transition-colors"
-        >
-          <lucide-icon [img]="icons.github" [size]="20"></lucide-icon>
-        </a>
-      </div>
-
-      <div
-        class="group bg-white p-8 rounded-[40px] border border-slate-100 text-center hover:shadow-2xl hover:shadow-pink-100/50 transition-all duration-500"
-      >
-        <img
-          src="https://github.com/daca2709.png"
-          class="w-24 h-24 rounded-full mx-auto mb-6 border-4 border-slate-50 group-hover:scale-110 transition-transform"
-        />
-        <h4 class="text-xl font-black text-slate-800">Davi Cavalcanti</h4>
-        <p class="text-sm text-slate-400 font-medium mb-4">RM559873</p>
-        <a
-          href="https://github.com/daca2709"
-          target="_blank"
-          class="inline-flex p-2 bg-slate-50 text-slate-400 rounded-full hover:bg-pink-600 hover:text-white transition-colors"
-        >
-          <lucide-icon [img]="icons.github" [size]="20"></lucide-icon>
-        </a>
-      </div>
-
-      <div
-        class="group bg-white p-8 rounded-[40px] border border-slate-100 text-center hover:shadow-2xl hover:shadow-pink-100/50 transition-all duration-500"
-      >
-        <img
-          src="https://github.com/mtslma.png"
-          class="w-24 h-24 rounded-full mx-auto mb-6 border-4 border-slate-50 group-hover:scale-110 transition-transform"
-        />
-        <h4 class="text-xl font-black text-slate-800">Mateus Lima</h4>
-        <p class="text-sm text-slate-400 font-medium mb-4">RM559728</p>
-        <a
-          href="https://github.com/mtslma"
-          target="_blank"
-          class="inline-flex p-2 bg-slate-50 text-slate-400 rounded-full hover:bg-pink-600 hover:text-white transition-colors"
-        >
-          <lucide-icon [img]="icons.github" [size]="20"></lucide-icon>
-        </a>
-      </div>
-    </div>
-
-    <footer class="pt-8 border-t border-slate-100 text-center">
-      <p class="text-[10px] font-bold text-slate-300 uppercase tracking-[0.5em]">
-        FIAP Paulista - 2TDSPA | 2026
+    <div class="mt-12 p-6 bg-white rounded-3xl border border-medix-100 text-center shadow-sm">
+      <p class="text-medix-700 font-bold text-sm mb-1">Ainda não faz parte da rede Medix?</p>
+      <p class="text-medix-400 text-xs mb-4 leading-relaxed">
+        Descubra como nossos planos de saúde inteligentes podem cuidar de você e sua família.
       </p>
-    </footer>
+
+      <a
+        href="tel:11991929312"
+        class="inline-flex items-center gap-2 text-medix-600 font-black text-sm hover:text-medix-700 transition-colors"
+      >
+        <lucide-icon [img]="icons.phone" [size]="16"></lucide-icon>
+        Consultar Planos: (11) 99192-9312
+      </a>
+    </div>
   </div>
-</section>
+
+  <footer class="absolute bottom-6 text-center">
+    <p class="text-[10px] font-bold text-medix-300 uppercase tracking-[0.4em]">
+      ORACLE CHALLENGE FIAP 2026
+    </p>
+  </footer>
+</div>

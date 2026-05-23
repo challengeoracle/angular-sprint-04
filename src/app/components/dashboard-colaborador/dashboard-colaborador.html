@@ -1,0 +1,153 @@
+<div class="h-screen overflow-hidden bg-medix-50 flex flex-col font-sans">
+  <main class="flex-1 overflow-y-auto p-10">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8">
+      <section class="lg:col-span-5">
+        <div class="bg-white p-8 rounded-4xl border border-medix-100 shadow-sm sticky top-0">
+          <h2 class="text-xl font-black text-medix-700 mb-6 flex items-center gap-2">
+            <lucide-icon
+              [img]="editandoId() ? icons.Pencil : icons.Hospital"
+              class="text-medix-600"
+            ></lucide-icon>
+            {{ editandoId() ? 'Editar Unidade' : 'Nova Unidade de Saúde' }}
+          </h2>
+
+          <form [formGroup]="form" (ngSubmit)="salvar()" class="space-y-4">
+            <input
+              formControlName="nome"
+              placeholder="Nome da Unidade"
+              class="w-full px-4 py-3 rounded-xl border border-medix-100 bg-medix-50 outline-none focus:border-medix-600 text-sm font-bold"
+            />
+            <input
+              formControlName="endereco"
+              placeholder="Endereço Completo"
+              class="w-full px-4 py-3 rounded-xl border border-medix-100 bg-medix-50 outline-none focus:border-medix-600 text-sm font-bold"
+            />
+
+            <div class="pt-4 border-t border-medix-50">
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-[10px] font-black text-medix-400 uppercase tracking-widest"
+                  >Salas / Consultórios</span
+                >
+                <button
+                  type="button"
+                  (click)="adicionarSala()"
+                  class="text-medix-600 flex items-center gap-1 text-[10px] font-black hover:underline"
+                >
+                  <lucide-icon [img]="icons.Plus" [size]="12"></lucide-icon> ADICIONAR SALA
+                </button>
+              </div>
+
+              <div formArrayName="salas" class="space-y-3 max-h-60 overflow-y-auto pr-2">
+                @for (sala of salas.controls; track $index) {
+                  <div
+                    [formGroupName]="$index"
+                    class="p-4 bg-medix-50 rounded-2xl border border-medix-100 relative group"
+                  >
+                    <button
+                      type="button"
+                      (click)="removerSala($index)"
+                      class="absolute top-2 right-2 text-medix-400 hover:text-red-500"
+                    >
+                      <lucide-icon [img]="icons.X" [size]="14"></lucide-icon>
+                    </button>
+                    <div class="grid grid-cols-3 gap-2">
+                      <input
+                        formControlName="numero"
+                        placeholder="Nº"
+                        class="bg-white border-none rounded-lg p-2 text-xs font-bold outline-none"
+                      />
+                      <input
+                        formControlName="nome"
+                        placeholder="Nome da Sala"
+                        class="col-span-2 bg-white border-none rounded-lg p-2 text-xs font-bold outline-none"
+                      />
+                    </div>
+                    <input
+                      formControlName="disponibilidade"
+                      placeholder="Disponibilidade (ex: 08:00 - 12:00)"
+                      class="w-full mt-2 bg-white border-none rounded-lg p-2 text-[10px] font-bold outline-none"
+                    />
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="flex gap-2 pt-4">
+              @if (editandoId()) {
+                <button
+                  type="button"
+                  (click)="cancelarEdicao()"
+                  class="flex-1 bg-slate-100 text-slate-500 py-4 rounded-2xl font-bold active:scale-95 transition-all uppercase text-[10px]"
+                >
+                  Cancelar
+                </button>
+              }
+              <button
+                type="submit"
+                [disabled]="form.invalid"
+                class="flex-2 bg-medix-600 text-white py-4 rounded-2xl font-bold hover:bg-medix-700 active:scale-95 transition-all shadow-lg shadow-medix-600/20 uppercase text-[10px] tracking-widest"
+              >
+                {{ editandoId() ? 'Atualizar Unidade' : 'Salvar Unidade' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="lg:col-span-7 space-y-6">
+        @for (u of unidades(); track u.id) {
+          <div
+            class="bg-white p-6 rounded-4xl border border-medix-100 shadow-sm flex flex-col gap-4 animate-in fade-in slide-in-from-right duration-500"
+          >
+            <div class="flex justify-between items-start">
+              <div class="flex items-center gap-4">
+                <div class="bg-medix-900 p-3 rounded-2xl text-medix-300">
+                  <lucide-icon [img]="icons.Hospital" [size]="24"></lucide-icon>
+                </div>
+                <div>
+                  <h3 class="text-xl font-black text-medix-700 leading-none">{{ u.nome }}</h3>
+                  <p class="text-xs text-medix-400 mt-2 flex items-center gap-1 font-medium">
+                    <lucide-icon [img]="icons.MapPin" [size]="12"></lucide-icon> {{ u.endereco }}
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  (click)="prepararEdicao(u)"
+                  class="p-2 text-medix-600 hover:bg-medix-50 rounded-xl transition-colors"
+                >
+                  <lucide-icon [img]="icons.Pencil" [size]="18"></lucide-icon>
+                </button>
+                <button
+                  (click)="excluir(u.id)"
+                  class="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors"
+                >
+                  <lucide-icon [img]="icons.Trash2" [size]="18"></lucide-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-4 border-t border-medix-50">
+              @for (sala of u.salas; track sala.id) {
+                <div class="px-3 py-2 bg-medix-50 rounded-xl border border-medix-100">
+                  <p class="text-[10px] font-black text-medix-700 leading-tight">
+                    {{ sala.numero }} - {{ sala.nome }}
+                  </p>
+                  <p class="text-[9px] text-medix-400 font-bold uppercase">
+                    {{ sala.disponibilidade }}
+                  </p>
+                </div>
+              }
+            </div>
+          </div>
+        } @empty {
+          <div
+            class="text-center py-20 text-medix-300 font-bold italic border-2 border-dashed border-medix-100 rounded-4xl"
+          >
+            Nenhuma unidade cadastrada ainda.
+          </div>
+        }
+      </section>
+    </div>
+  </main>
+</div>

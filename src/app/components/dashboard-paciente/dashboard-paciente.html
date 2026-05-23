@@ -1,0 +1,142 @@
+<div class="mx-auto p-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <header class="flex justify-between items-center mb-10">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900 tracking-tight">
+        Olá, {{ dashboardData()?.nomePaciente }}
+      </h1>
+      <p class="text-slate-500 text-sm">Gerencie suas consultas e histórico médico.</p>
+    </div>
+    <div class="flex gap-3">
+      <button
+        (click)="exibirModal.set(true)"
+        class="bg-medix-600 text-white px-5 py-2.5 rounded-xl font-semibold flex items-center gap-2 hover:bg-medix-700 transition-all shadow-sm"
+      >
+        <lucide-icon [img]="icons.Plus" [size]="18"></lucide-icon> Agendar
+      </button>
+    </div>
+  </header>
+
+  <div class="grid lg:grid-cols-12 gap-6">
+    <section class="lg:col-span-8 space-y-6">
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest">
+            Próximo Agendamento
+          </h2>
+        </div>
+
+        @if (dashboardData()?.proximoAgendamento; as proximo) {
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-medix-50 text-medix-600 rounded-full flex items-center justify-center shrink-0"
+              >
+                <lucide-icon [img]="icons.Activity" [size]="24"></lucide-icon>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-900">{{ proximo.especialidade }}</h3>
+                <p class="text-slate-500 font-medium">Dr(a). {{ proximo.medico.nome }}</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8 text-sm">
+              <div>
+                <span class="block text-slate-400 font-bold text-[10px] uppercase">Quando</span>
+                <span class="text-slate-700 font-bold">{{
+                  proximo.dataHoraInicio | date: 'dd/MM, HH:mm'
+                }}</span>
+              </div>
+              <div>
+                <span class="block text-slate-400 font-bold text-[10px] uppercase">Onde</span>
+                <span class="text-slate-700 font-bold">{{ proximo.unidade.nome }}</span>
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button
+                (click)="cancelar(proximo.id)"
+                class="text-red-500 flex flex-col items-center hover:bg-red-50 p-2 rounded-lg transition-colors"
+              >
+                <lucide-icon [img]="icons.XCircle" [size]="20"></lucide-icon>
+                <p>Cancelar</p>
+              </button>
+              <button
+                (click)="confirmar(proximo.id)"
+                class="text-medix-600 flex flex-col items-center hover:bg-medix-50 p-2 rounded-lg transition-colors"
+              >
+                <lucide-icon [img]="icons.CheckCircle" [size]="20"></lucide-icon>
+                <p>Confirmar</p>
+              </button>
+            </div>
+          </div>
+        } @else {
+          <div class="py-10 text-center border-2 border-dashed border-slate-100 rounded-xl">
+            <p class="text-slate-400 text-sm font-medium">Nenhum compromisso agendado.</p>
+          </div>
+        }
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="bg-white border border-slate-200 p-5 rounded-2xl">
+          <p class="text-slate-400 text-[10px] font-black uppercase">Realizados</p>
+          <p class="text-2xl font-bold text-slate-900">
+            {{ dashboardData()?.totalAgendamentosRealizados || 0 }}
+          </p>
+        </div>
+        <div class="bg-white border border-slate-200 p-5 rounded-2xl">
+          <p class="text-slate-400 text-[10px] font-black uppercase">Cancelados</p>
+          <p class="text-2xl font-bold text-red-500">
+            {{ dashboardData()?.totalAgendamentosCancelados || 0 }}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="lg:col-span-4">
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 h-full">
+        <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">
+          Últimas Atividades
+        </h3>
+
+        <div class="space-y-4">
+          @for (item of dashboardData()?.ultimosAgendamentos; track item.id) {
+            <div
+              class="flex items-center justify-between p-3 bg-white rounded-xl border border-slate-100"
+            >
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-2 h-2 rounded-full"
+                  [ngClass]="item.status === 'CANCELADO' ? 'bg-red-400' : 'bg-green-400'"
+                ></div>
+                <div>
+                  <p class="text-sm font-bold text-slate-800">{{ item.especialidade }}</p>
+                  <p class="text-[10px] text-slate-400 font-bold">
+                    {{ item.dataHoraInicio | date: 'dd MMM' }}
+                  </p>
+                </div>
+              </div>
+              <lucide-icon
+                [img]="icons.ChevronRight"
+                [size]="14"
+                class="text-slate-300"
+              ></lucide-icon>
+            </div>
+          }
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+@if (exibirModal()) {
+  <div
+    class="fixed inset-0 z-100 flex items-center justify-center bg-slate-900/40 backdrop-blur-[2px] p-6"
+  >
+    <div
+      class="bg-white w-full max-w-md rounded-2xl shadow-xl border border-slate-200 overflow-hidden"
+    >
+      <app-cadastrar-agendamento-form (fechar)="exibirModal.set(false)" (sucesso)="carregarDados()">
+      </app-cadastrar-agendamento-form>
+    </div>
+  </div>
+}

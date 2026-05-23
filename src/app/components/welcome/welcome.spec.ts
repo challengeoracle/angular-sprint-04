@@ -1,22 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
-import { Welcome } from './welcome';
-
-describe('Welcome', () => {
-  let component: Welcome;
-  let fixture: ComponentFixture<Welcome>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Welcome],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(Welcome);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+@Component({
+  selector: 'app-welcome',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './welcome.html',
+})
+export class Welcome {}

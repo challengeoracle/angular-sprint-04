@@ -1,33 +1,58 @@
 /* src/styles.css */
 @import 'tailwindcss';
 
+@theme {
+  /* Mapeamento direto para o Tailwind v4 reconhecer as classes medix-* */
+  --color-medix-50: var(--medix-50);
+  --color-medix-100: var(--medix-100);
+  --color-medix-200: var(--medix-200);
+  --color-medix-300: var(--medix-300);
+  --color-medix-400: var(--medix-400);
+  --color-medix-500: var(--medix-500);
+  --color-medix-600: var(--medix-600);
+  --color-medix-700: var(--medix-700);
+  --color-medix-800: var(--medix-800);
+  --color-medix-900: var(--medix-900);
+  --color-medix-error: var(--medix-error);
+}
+
 @layer base {
-  /* Remove itálicos e define suavização de fonte */
+  :root {
+    --medix-50: #faf9f6;
+    --medix-100: #e9f4f1;
+    --medix-200: #cfe7e2;
+    --medix-300: #a9d2c7;
+    --medix-400: #7dbbaf;
+    --medix-500: #52a897;
+    --medix-600: #3a8f80;
+    --medix-700: #2c6f64;
+    --medix-800: #1e4f46;
+    --medix-900: #122f29;
+    --medix-error: #e45865;
+  }
+
   * {
     font-style: normal !important;
     @apply font-sans antialiased;
   }
 
   body {
-    /* bg-slate-50 dá um contraste melhor com os cards brancos */
-    @apply bg-slate-50 text-slate-900 overflow-x-hidden;
+    /* bg-medix-50 para usar sua cor personalizada de fundo */
+    @apply bg-medix-50 text-slate-900 overflow-x-hidden;
   }
 }
 
-/* Estilização de erro nos inputs */
+/* Estilização de erro nos inputs usando sua cor medix-error */
 .ng-invalid.ng-touched {
-  @apply border-red-500 ring-4 ring-red-50;
+  @apply border-medix-error ring-4 ring-red-50;
 }
 
 /* --- Animações --- */
-
 @layer utilities {
-  /* Toast: Entrada suave com escala */
   .animate-toast {
     animation: toast-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  /* Classe para aplicar manualmente se precisar em outros lugares */
   .fade-in-slide {
     animation: pageIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
@@ -44,11 +69,6 @@
   }
 }
 
-/* Troca de Páginas:
-   Aplicamos apenas ao primeiro elemento após o router-outlet.
-   Isso garante que modais (que geralmente ficam no final do body ou
-   dentro de outros containers) não sofram o slide.
-*/
 main > router-outlet + * {
   display: block;
   animation: pageIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -65,7 +85,7 @@ main > router-outlet + * {
   }
 }
 
-/* Scrollbar mais elegante (opcional, combina com o "talento") */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -75,5 +95,5 @@ main > router-outlet + * {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
+  @apply bg-medix-300 rounded-full hover:bg-medix-400 transition-colors;
 }

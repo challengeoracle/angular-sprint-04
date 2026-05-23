@@ -1,5 +1,5 @@
 {
-  "name": "buscacores",
+  "name": "medix-angular",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
     "@lucide/angular": "^1.1.0",
+    "jwt-decode": "^4.0.0",
     "lucide-angular": "^1.0.0",
     "ngx-color-picker": "^20.1.1",
     "rxjs": "~7.8.0",

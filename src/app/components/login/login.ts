@@ -18,16 +18,22 @@ export class Login {
 
   protected readonly icons = { LogIn };
 
+  // Atualizado para bater com o JSON do seu Postman: email e senha
   form = this.fb.group({
-    username: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    email: ['', [Validators.required, Validators.email]],
+    senha: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   onSubmit() {
     if (this.form.valid) {
+      // O objeto enviado será exatamente { email: '...', senha: '...' }
       this.authService.login(this.form.value).subscribe({
-        next: () => this.toast.show('Bem-vindo ao Busca Cores!', 'success'),
-        error: () => this.toast.show('Usuário ou senha inválidos', 'error'),
+        next: () => {
+          this.toast.show('Bem-vindo ao Medix!', 'success');
+        },
+        error: () => {
+          this.toast.show('E-mail ou senha incorretos', 'error');
+        },
       });
     }
   }

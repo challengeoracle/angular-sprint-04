@@ -1,0 +1,92 @@
+<div class="p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-bold text-slate-800">Nova Consulta</h2>
+    <button (click)="fechar.emit()" class="text-slate-400 hover:text-slate-600">
+      <lucide-icon [img]="icons.X" [size]="20"></lucide-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="space-y-5">
+    <div class="space-y-1">
+      <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">O que você precisa?</label>
+      <input
+        formControlName="especialidade"
+        class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm font-medium focus:ring-2 focus:ring-medix-600/20 outline-none"
+        placeholder="Ex: Cardiologia, Exame de Sangue..."
+      />
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="space-y-1">
+        <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Unidade</label>
+        <select
+          formControlName="unidadeId"
+          class="w-full px-3 py-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold outline-none"
+        >
+          <option [value]="null" disabled>Selecione...</option>
+          @for (u of unidades(); track u.id) {
+            <option [value]="u.id">{{ u.nome }}</option>
+          }
+        </select>
+      </div>
+      <div class="space-y-1">
+        <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Médico</label>
+        <select
+          formControlName="medicoId"
+          class="w-full px-3 py-3 rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold outline-none"
+        >
+          <option [value]="null" disabled>Selecione...</option>
+          @for (m of medicos(); track m.id) {
+            <option [value]="m.id">{{ m.nome }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="space-y-1">
+      <label class="text-[10px] font-bold text-slate-400 uppercase ml-1">Data da Consulta</label>
+      <div class="relative">
+        <input
+          type="date"
+          formControlName="data"
+          class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold outline-none"
+        />
+        <lucide-icon
+          [img]="icons.Calendar"
+          [size]="16"
+          class="absolute left-3 top-3.5 text-slate-400"
+        ></lucide-icon>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label class="text-[10px] font-bold text-slate-400 uppercase ml-1"
+        >Horários Disponíveis</label
+      >
+      <div class="grid grid-cols-4 gap-2">
+        @for (hora of horariosDisponiveis; track hora) {
+          <button
+            type="button"
+            (click)="selecionarHorario(hora)"
+            [class]="
+              horarioSelecionado() === hora
+                ? 'bg-medix-600 text-white border-medix-600'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-medix-300'
+            "
+            class="py-2 text-xs font-bold rounded-lg border transition-all"
+          >
+            {{ hora }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="form.invalid || !horarioSelecionado()"
+      class="w-full bg-medix-600 text-white py-4 rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-medix-700 transition-all shadow-lg shadow-medix-600/10 disabled:opacity-50 mt-4"
+    >
+      Confirmar Agendamento
+    </button>
+  </form>
+</div>

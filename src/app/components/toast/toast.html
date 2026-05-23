@@ -1,35 +1,63 @@
 @if (service.msg(); as t) {
-  <div class="fixed bottom-8 right-8 z-100 animate-in">
+  <div class="fixed bottom-8 right-8 z-100 animate-toast">
     <div
-      class="flex items-center gap-4 px-6 py-4 rounded-2xl shadow-2xl min-w-[320px] border-l-4 transition-all duration-300"
+      class="flex items-center gap-4 px-6 py-5 rounded-2xl shadow-2xl min-w-87.5 border-l-4 transition-all duration-300"
       [ngClass]="{
-        'bg-slate-900 border-pink-500 text-white!': t.type === 'success',
-        'bg-red-600 border-red-800 text-white!': t.type === 'error',
-        'bg-blue-600 border-blue-800 text-white!': t.type === 'info',
+        'bg-white border-medix-600 text-medix-900': t.type === 'success',
+        'bg-white border-medix-error text-medix-900': t.type === 'error',
+        'bg-white border-orange-500 text-medix-900': t.type === 'warning',
+        'bg-medix-900 border-medix-300 text-white': t.type === 'info',
       }"
     >
       <lucide-icon
-        [img]="t.type === 'success' ? icons.check : t.type === 'error' ? icons.x : icons.info"
-        [size]="22"
-        class="shrink-0 text-white"
+        [img]="
+          t.type === 'success'
+            ? icons.check
+            : t.type === 'error'
+              ? icons.errorIcon
+              : t.type === 'warning'
+                ? icons.warning
+                : icons.info
+        "
+        [size]="24"
+        [class]="
+          t.type === 'info'
+            ? 'text-medix-300'
+            : t.type === 'success'
+              ? 'text-medix-600'
+              : t.type === 'warning'
+                ? 'text-orange-500'
+                : 'text-medix-error'
+        "
+        class="shrink-0"
       ></lucide-icon>
 
       <div class="flex flex-col">
         <span
-          class="text-[10px] uppercase font-black tracking-[0.15em] opacity-80 text-white! leading-none mb-1.5"
+          class="text-[10px] uppercase font-black tracking-[0.2em] leading-none mb-1.5 opacity-60"
+          [class]="t.type === 'info' ? 'text-medix-100' : 'text-medix-700'"
         >
-          {{ t.type === 'success' ? 'Sucesso' : t.type === 'error' ? 'Erro' : 'Aviso' }}
+          {{
+            t.type === 'success'
+              ? 'Sucesso'
+              : t.type === 'error'
+                ? 'Problema'
+                : t.type === 'warning'
+                  ? 'Atenção'
+                  : 'Notificação'
+          }}
         </span>
-        <span class="text-sm font-bold tracking-tight text-white!">
-          {{ t.message }}
+        <span class="text-sm font-bold tracking-tight">
+          {{ t.text }}
         </span>
       </div>
 
       <button
         (click)="service.msg.set(null)"
-        class="ml-auto opacity-50 hover:opacity-100 text-white"
+        class="ml-auto opacity-30 hover:opacity-100 transition-opacity"
+        [class]="t.type === 'info' ? 'text-white' : 'text-medix-900'"
       >
-        <lucide-icon [img]="icons.x" [size]="14"></lucide-icon>
+        <lucide-icon [img]="icons.x" [size]="16"></lucide-icon>
       </button>
     </div>
   </div>

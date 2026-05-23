@@ -1,16 +1,12 @@
 import { Injectable, signal } from '@angular/core';
 
-export interface Toast {
-  message: string;
-  type: 'success' | 'error' | 'info';
-}
-
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-  msg = signal<Toast | null>(null);
+  // Mantendo 'text' como a propriedade principal da mensagem
+  msg = signal<{ text: string; type: 'success' | 'error' | 'info' | 'warning' } | null>(null);
 
-  show(message: string, type: 'success' | 'error' | 'info' = 'success') {
-    this.msg.set({ message, type });
-    setTimeout(() => this.msg.set(null), 3500);
+  show(text: string, type: 'success' | 'error' | 'info' | 'warning' = 'success') {
+    this.msg.set({ text, type });
+    setTimeout(() => this.msg.set(null), 3000);
   }
 }
