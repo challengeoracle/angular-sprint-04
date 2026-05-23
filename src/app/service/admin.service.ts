@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,11 +9,11 @@ import { Observable } from 'rxjs';
 export class AdminService {
   private http = inject(HttpClient);
 
-  // URLs base separadas para corresponder à sua API
-  private readonly ADMIN_URL = 'https://sprint-04-java.onrender.com//admin';
-  private readonly AGENDAMENTOS_URL = 'https://sprint-04-java.onrender.com//agendamentos';
+  // Montamos as URLs base dinamicamente usando o environment
+  private readonly ADMIN_URL = `${environment.apiUrl}/admin`;
+  private readonly AGENDAMENTOS_URL = `${environment.apiUrl}/agendamentos`;
 
-  // REQUISITO: Cadastro de Colaboradores (Trigger de Auditoria)
+  // REQUISITO: Cadastro de Colaboradores
   cadastrarColaborador(dto: any): Observable<any> {
     return this.http.post(`${this.ADMIN_URL}/colaboradores`, dto);
   }

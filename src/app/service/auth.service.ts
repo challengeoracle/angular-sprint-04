@@ -3,8 +3,8 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-// Importe o serviço do chatbot (ajuste o caminho se necessário)
 import { MedixAiService } from './medix-ai.service';
+import { environment } from '../../enviroments/enviroment';
 
 interface LoginResponse {
   token: string;
@@ -16,11 +16,10 @@ interface LoginResponse {
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  // Injeta o serviço da IA para controlar o ciclo de vida do chat
   private aiService = inject(MedixAiService);
 
-  // URL base conforme seu ambiente local
-  private readonly API_URL = 'https://sprint-04-java.onrender.com/auth';
+  // URL base usando o environment
+  private readonly API_URL = `${environment.apiUrl}/auth`;
 
   isLoggedIn = signal<boolean>(!!localStorage.getItem('token'));
 

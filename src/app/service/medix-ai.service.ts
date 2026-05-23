@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../enviroments/enviroment';
 
 export interface ChatMessage {
   sender: 'user' | 'bot';
@@ -16,12 +17,15 @@ export interface ChatResponse {
   providedIn: 'root',
 })
 export class MedixAiService {
-  private readonly apiUrl = 'https://sprint-04-java.onrender.com/api/chat/ask';
+  // Ajustado para usar o environment
+  private readonly apiUrl = `${environment.apiUrl}/api/chat/ask`;
   private readonly storageKey = 'medix-ai-chat-history';
 
   private history: ChatMessage[] = this.loadHistory();
 
   constructor(private http: HttpClient) {}
+
+  // ... resto do serviço segue igual
 
   getHistory(): ChatMessage[] {
     return this.history;
