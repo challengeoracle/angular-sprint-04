@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/buscacores",
+  "outputDirectory": "dist/buscacores/browser",
   "rewrites": [
     {
       "source": "/(.*)",
