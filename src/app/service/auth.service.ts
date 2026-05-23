@@ -20,7 +20,7 @@ export class AuthService {
   private aiService = inject(MedixAiService);
 
   // URL base conforme seu ambiente local
-  private readonly API_URL = 'http://localhost:8080/auth';
+  private readonly API_URL = 'https://sprint-04-java.onrender.com/auth';
 
   isLoggedIn = signal<boolean>(!!localStorage.getItem('token'));
 

@@ -9,8 +9,8 @@ export class AdminService {
   private http = inject(HttpClient);
 
   // URLs base separadas para corresponder à sua API
-  private readonly ADMIN_URL = 'http://localhost:8080/admin';
-  private readonly AGENDAMENTOS_URL = 'http://localhost:8080/agendamentos';
+  private readonly ADMIN_URL = 'https://sprint-04-java.onrender.com//admin';
+  private readonly AGENDAMENTOS_URL = 'https://sprint-04-java.onrender.com//agendamentos';
 
   // REQUISITO: Cadastro de Colaboradores (Trigger de Auditoria)
   cadastrarColaborador(dto: any): Observable<any> {

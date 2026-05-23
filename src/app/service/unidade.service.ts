@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class UnidadeService {
   private http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:8080/unidades';
+  private readonly API_URL = 'https://sprint-04-java.onrender.com/unidades';
 
   // Retorna a listagem completa de unidades com todos os detalhes e salas
   listar(): Observable<any[]> {

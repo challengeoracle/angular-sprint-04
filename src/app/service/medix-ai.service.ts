@@ -16,7 +16,7 @@ export interface ChatResponse {
   providedIn: 'root',
 })
 export class MedixAiService {
-  private readonly apiUrl = 'http://localhost:8080/api/chat/ask';
+  private readonly apiUrl = 'https://sprint-04-java.onrender.com/api/chat/ask';
   private readonly storageKey = 'medix-ai-chat-history';
 
   private history: ChatMessage[] = this.loadHistory();

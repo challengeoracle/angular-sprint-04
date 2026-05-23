@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AgendamentoService {
   private http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:8080/agendamentos';
+  private readonly API_URL = 'https://sprint-04-java.onrender.com/agendamentos';
 
   // Carrega os dados estatísticos e listas para o Dashboard do Paciente
   getDashboard(): Observable<any> {
