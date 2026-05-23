@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { environment } from '../../enviroments/enviroment';
+import { Observable } from 'rxjs';
 
 export interface ChatMessage {
   sender: 'user' | 'bot';
@@ -17,35 +16,34 @@ export interface ChatResponse {
   providedIn: 'root',
 })
 export class MedixAiService {
-  // Ajustado para usar o environment
-  private readonly apiUrl = `${environment.apiUrl}/api/chat/ask`;
-  private readonly storageKey = 'medix-ai-chat-history';
+  private readonly apiUrl = 'http://localhost:8080/api/chat/ask';
+
+  private readonly historyKey = 'medix-ai-chat-history';
+  private readonly sessionKey = 'medix-ai-session-id';
 
   private history: ChatMessage[] = this.loadHistory();
 
   constructor(private http: HttpClient) {}
-
-  // ... resto do serviço segue igual
 
   getHistory(): ChatMessage[] {
     return this.history;
   }
 
   sendMessage(message: string): Observable<ChatResponse> {
-    const userMessage: ChatMessage = {
+    return this.http.post<ChatResponse>(this.apiUrl, {
+      sessionId: this.getSessionId(),
+      message,
+    });
+  }
+
+  addUserMessage(message: string): void {
+    this.history.push({
       sender: 'user',
       text: message,
       timestamp: new Date(),
-    };
+    });
 
-    this.history.push(userMessage);
     this.saveHistory();
-
-    return this.http.post<ChatResponse>(this.apiUrl, { message }).pipe(
-      tap((res) => {
-        this.addBotResponse(res.response);
-      }),
-    );
   }
 
   addBotResponse(response: string): void {
@@ -59,16 +57,38 @@ export class MedixAiService {
   }
 
   clearHistory(): void {
-    this.history = [];
-    localStorage.removeItem(this.storageKey);
+    this.history = [
+      {
+        sender: 'bot',
+        text: 'Olá! Eu sou a Medix AI. Como posso ajudar você hoje?',
+        timestamp: new Date(),
+      },
+    ];
+
+    this.saveHistory();
+  }
+
+  resetSession(): void {
+    localStorage.removeItem(this.sessionKey);
+  }
+
+  private getSessionId(): string {
+    let sessionId = localStorage.getItem(this.sessionKey);
+
+    if (!sessionId) {
+      sessionId = crypto.randomUUID();
+      localStorage.setItem(this.sessionKey, sessionId);
+    }
+
+    return sessionId;
   }
 
   private saveHistory(): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.history));
+    localStorage.setItem(this.historyKey, JSON.stringify(this.history));
   }
 
   private loadHistory(): ChatMessage[] {
-    const stored = localStorage.getItem(this.storageKey);
+    const stored = localStorage.getItem(this.historyKey);
 
     if (!stored) {
       return [
