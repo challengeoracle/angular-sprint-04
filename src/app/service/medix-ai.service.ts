@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../enviroments/enviroment';
 
 export interface ChatMessage {
   sender: 'user' | 'bot';
@@ -16,7 +17,7 @@ export interface ChatResponse {
   providedIn: 'root',
 })
 export class MedixAiService {
-  private readonly apiUrl = 'http://localhost:8080/api/chat/ask';
+  private readonly apiUrl = `${environment.apiUrl}/api/chat/ask`;
 
   private readonly historyKey = 'medix-ai-chat-history';
   private readonly sessionKey = 'medix-ai-session-id';
