@@ -36,7 +36,7 @@ export class CadastrarAgendamentoForm implements OnInit {
     especialidade: ['', [Validators.required, Validators.minLength(3)]],
     data: ['', Validators.required], // Campo apenas para a data
     tipo: ['CONSULTA', Validators.required],
-    salaId: [1], // Valor padrão simplificado
+    salaId: null,
   });
 
   ngOnInit() {
